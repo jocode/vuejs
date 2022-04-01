@@ -101,4 +101,22 @@ props: {
 
 Otra forma de enviar las propiedades es usando el atajo **`:propertyName="value"`**, por ejemplo `<Counter :start="5"/>`
 
-## Validación de los props
+La validación de las propiedades se hace mediante **validators**, que se definen en el objeto `props` del componente.
+
+```js
+export default {
+    props: {
+        title: String,
+        start: {
+            type: Number,
+            default: 0,
+            // required: true
+            validator(value) {
+                return value >= 0
+            }
+        }
+    },
+    name: 'Counter',
+}
+```
+
