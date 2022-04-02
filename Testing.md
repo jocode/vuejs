@@ -120,6 +120,9 @@ Se recomienta usar data-attributes para identificar los elementos en las pruebas
 
 ## Simular eventos
 
+Para test repetidos, es recomendable montar el componente con la función **`beforeEach()`**.
+[Setup and Teardown](https://jestjs.io/docs/setup-teardown)
+
 La simulación de eventos es una forma de simular el comportamiento de un elemento, por ejemplo al hacer click, al hacer focus, etc.
 
 El procedimiento del DOM no es del todo síncrono, cuando se llama el botón el evento no se dispara secuencialmente.
@@ -162,4 +165,32 @@ const title = "Custom Title"
             title
         }
     })
+```
+
+## Pruebas en el componente Indecision
+
+| :bulb: Es importante definir las pruebas a realizar
+
+Algunas pruebas necesitan usar **`spy`** para espiar alguna función, en este caso espiamos el `console.log` para ver si se ejecuta.
+
+
+### Spy con la instancia de VueJS
+
+Para tener la instancia de VueJS con el spy, se debe usar el objeto `vm`. De esta forma sabremos si se ha llamado un método del componente.
+
+```js
+const getAnswerSpy = jest.spyOn(wrapper.vm, 'getAnswer')
+```
+
+Para hacer mocks con las respuestas de las APIs, debemos crearnos el método **fetch** para que NodeJS pueda usarlo y simular la respuesta usando _Jest_. Aquí se define las promesas y la respuesta del JSON que se desea devolver.
+
+```js
+// Mock del 'fetch' Api
+global.fetch = jest.fn( () => Promise.resolve({
+    json: () => Promise.resolve({
+        answer: "yes",
+        forced: false,
+        image: "https://yesno.wtf/assets/yes/2.gif"
+    })
+}))
 ```

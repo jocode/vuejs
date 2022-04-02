@@ -1,5 +1,5 @@
 <template>
-  <img :src="img" alt="Imagen"/>
+  <img :src="img" alt="Imagen" />
   <div class="bg-dark"></div>
 
   <div class="indecision-container">
@@ -27,26 +27,34 @@ export default {
 
   watch: {
     question(value, oldValue) {
-        this.isValidQuestion = false
+      this.isValidQuestion = false;
+      console.log({ value });
+
       if (!value.endsWith("?")) return;
 
-      this.isValidQuestion = true
+      this.isValidQuestion = true;
       this.getAnswer();
     },
   },
 
   methods: {
     async getAnswer() {
-      this.answer = "Pensando...";
+      try {
+        this.answer = "Pensando...";
 
-      const {answer, image} = await fetch("https://yesno.wtf/api").then((response) =>
-        response.json()
-      );
+        const { answer, image } = await fetch("https://yesno.wtf/api").then(
+          (response) => response.json()
+        );
 
-      this.answer = (answer === "yes") ? "¡Si!" : "¡No!";
-      this.img = image
+        this.answer = answer === "yes" ? "¡Si!" : "¡No!";
+        this.img = image;
+      } catch (error) {
+        console.log('IndecisionComponent', error)
+        this.answer = 'No se pudo cargar del API';
+        this.img = null
+      }
     },
-  }
+  },
 };
 </script>
 
