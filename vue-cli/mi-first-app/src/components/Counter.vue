@@ -1,8 +1,9 @@
 <template>
     <h2>{{ customTitle }}</h2>
     <p>{{ count }} <sup>2</sup> = {{ squareValue }}</p>
+    <p data-testid="counter">{{ count }}</p>
 
-    <p>
+    <p class="buttons">
         <button v-on:click="decrement">-</button>
         <button @click="increment">+</button>
     </p>
@@ -42,7 +43,7 @@ export default {
 
     computed: {
         squareValue: function() {
-            console.log('Computed squareValue')
+            // console.log('Computed squareValue')
             return this.count * this.count
         },
 

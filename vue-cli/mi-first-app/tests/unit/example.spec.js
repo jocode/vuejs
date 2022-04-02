@@ -1,4 +1,29 @@
-import { shallowMount } from '@vue/test-utils'
+describe('Example component', () => {
+
+  test('Debe de ser mayor a 10', () => {
+    // Arrange - Preparacion
+    let value = 10;
+
+    // Act - Ejecución
+    value = value + 2;
+
+    // Assert - Verificacion
+    expect(value).toBeGreaterThan(10);
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+/* import { shallowMount } from '@vue/test-utils'
 import HelloWorld from '@/components/HelloWorld.vue'
 
 describe('HelloWorld.vue', () => {
@@ -9,4 +34,4 @@ describe('HelloWorld.vue', () => {
     })
     expect(wrapper.text()).toMatch(msg)
   })
-})
+}) */
