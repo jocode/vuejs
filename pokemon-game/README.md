@@ -64,3 +64,9 @@ En elemento padre, podremos escuchar el evento usando
 ```
 
 Es una buena práctica, mantener los nombres de los componentes con UpperCamelCase y los atributos con kebab-case.
+
+## Generar los archivos de distribución.
+
+Para construir el bundle en la aplicación ejecutamos el comando.
+
+- `npm run build`
