@@ -35,7 +35,7 @@ export default {
   },
 
   methods: {
-    async mixPokeminArray() {
+    async mixPokemonArray() {
       this.pokemonArr = await getPokemonOptions();
 
       const rdnInt = Math.floor(Math.random() * this.pokemonArr.length);
@@ -57,12 +57,12 @@ export default {
       this.pokemon = null
       this.showPokemon = false
       this.showAnswer = false
-      this.mixPokeminArray()
+      this.mixPokemonArray()
     },
   },
 
   mounted() {
-    this.mixPokeminArray();
+    this.mixPokemonArray();
   },
 };
 </script>
