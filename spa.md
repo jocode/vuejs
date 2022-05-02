@@ -267,3 +267,113 @@ Esto nos permite crear un sitio que tenga diferentes diseños estructurales entr
 Los `layout` es un simple componente que internamente va a tener otro routerView, es como otro `App.vue`
 
 Lo que permite tener rutas hijas, es el componente **` <router-view/>`**, que los definimos en los layouts.
+
+Dentro de ella definimos el componente **children** que tendrá las subrutas que se deseen.
+
+router.js
+```js
+{
+    path: "/pokemon",
+    name: "pokemon",
+    component: () => import("../modules/pokemon/layouts/PokemonLayout"),
+    children: [
+      {
+        path: "home",
+        name: "pokemon-home",
+        component: () =>
+          import(
+            /* webpackChunkName: "ListPage" */ "../modules/pokemon/pages/ListPage"
+          ),
+      },
+      {
+        path: "about",
+        name: "pokemon-about",
+        component: () =>
+          import(
+            /* webpackChunkName: "AboutPage" */ "../modules/pokemon/pages/AboutPage"
+          ), // LazyLoad
+      },
+      {
+        path: "pokemonid/:id",
+        name: "pokemon-id",
+        component: () => import("../modules/pokemon/pages/PokemonPage"),
+        props: (route) => {
+          // console.log(route)
+          const pokemonId = Number(route.params.pokemonId);
+          return isNaN(pokemonId) ? { pokemonId: 1 } : { pokemonId };
+        },
+      },
+      {
+        path: '',
+        redirect: { name: 'pokemon-about' }
+      }
+    ],
+  },
+```
+
+:warning: Falta agregar más descripción sobre los múltiples Router-View - Rutas hijas.
+
+
+## Guard - Protección de rutas (Global)
+
+Los guard protegen las rutas, el guard más común es el de verificar si el usuario está autenticado o no.
+
+
+[Navigation Guards](https://router.vuejs.org/guide/advanced/navigation-guards.html)
+
+Hay 2 tipos de guard:
+- **guard síncrono**. El guard se ejecuta antes de que la ruta se cargue.
+- **guard asíncrono**. El guard se ejecuta después de que la ruta se cargue.
+
+- `guard síncrono`
+
+```js
+router.beforeEach((to, from, next) => {
+  // console.log({ to, from, next });
+  const random = Math.random() * 100;
+
+  if (random > 50) {
+    console.log('Autenticado')
+    next()
+  } else {
+    console.log('No Autenticado - Bloqueado por el beforeEach Guard')
+    next({ name: 'pokemon-home' })
+  }
+});
+```
+
+
+- `guard asíncrono`
+```js
+const canAccess = () => {
+  return new Promise((resolve) => {
+
+    const random = Math.random() * 100;
+
+    if (random > 50) {
+      console.log("Autenticado");
+      resolve(true)
+    } else {
+      console.log("No Autenticado - Bloqueado por el beforeEach Guard");
+      resolve(false)
+    }
+
+  });
+};
+
+router.beforeEach( async (to, from, next) => {
+
+  const authorized = await canAccess();
+
+  authorized
+    ? next()
+    : next({ name: 'pokemon-home' });
+
+})
+```
+
+## Guard específicos para rutas - Protección de rutas (Local)
+
+Los guard protegen las rutas, el guard más común es el de verificar si el usuario está autenticado o no.
+
+Para agregar un guard específico para una ruta, se usa la propiedad  **`beforeEnter: [isAuthenticatedGuard],`** y se le pasa la función que se quiere ejecutar la validación.
