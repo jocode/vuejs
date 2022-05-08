@@ -106,3 +106,35 @@ const routes = [
 - **`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />`**
 
 Y lo agregamos en el archivo `index.html`
+
+Las vistas son las páginas que se van a mostrar en la aplicación. Se construyen a partir de los componentes y son los que se muestran en las rutas.
+
+
+**Mandar propiedades a través de atributos en componentes con vue**
+
+Podemos mandar propiedades a través de los componentes y usarlos como modificadores de clase que podremos usar en el componente hijo.
+
+Para ello, una técnica que podemos hacer es usar el view bind con el que hacemos append a la clase que estamos trabajando.
+
+```html
+<!-- En el componente contenedor -->
+<Fab icon="fa-save"/>
+
+<!-- En el el componente anidado -->
+<i 
+  class="fa fa-2x"
+  :class="icon"></i>
+```
+
+```js
+export default {
+  name: "FabButton",
+  props: {
+    icon: {
+      type: String,
+      default: 'fa-plus'
+    },
+  }
+};
+```
+
