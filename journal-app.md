@@ -138,3 +138,19 @@ export default {
 };
 ```
 
+
+
+## Instalar Vuex y crear un módulo reutilizable
+
+Cuando usamos vuex significa que vamos a estar trabajando con un estado mediano o grande.
+
+- **`yarn add vuex@next --save`**
+
+Luego nos aseguramos que esté instalado en módulo en el archivo `package.json` con la versión `^4.0.2` o superior **^**.
+
+Nos creamos 2 directorios.
+1. El **store** global
+2. El **store** dentro de cada módulo
+
+un módulo, puede ser que tenga diferentes secciones de estado dentro de él.
+Usualmente un único módulo es suficiente, pero todo depende de la necesidad.
