@@ -154,3 +154,23 @@ Nos creamos 2 directorios.
 
 un módulo, puede ser que tenga diferentes secciones de estado dentro de él.
 Usualmente un único módulo es suficiente, pero todo depende de la necesidad.
+
+- Se configura el store en cada uno de los módulos y en el wrapper del store global se agregan los módulos de la aplicación.
+
+**store/index.js**
+```js
+import { createStore } from "vuex";
+
+import journalModule from '../modules/daybook/store/journal';
+
+const store = createStore({
+    modules: {
+        journal: journalModule
+    }
+})
+
+export default store
+```
+
+## Entradas ficticias y puntos de restauración
+
