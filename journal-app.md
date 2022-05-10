@@ -174,3 +174,21 @@ export default store
 
 ## Entradas ficticias y puntos de restauración
 
+Se crea entradas ficticias en el estado del módulo **journal**, y se crea un **tag** para tener una versión 1.0 del proyecto.
+
+- ***`git tag -a v1.0.0 -m "Version name"`***
+- ***`git push --tags`***
+
+
+## mapGetters - getEntriesByTerm
+
+- [x] Mostrar las entradas desde el estado.
+- [x] Mostrar las entradas que coincidan con el termino.
+- [x] Obtener una entrada por su id.
+
+
+## Cargar entrada cuando cambia el URL
+
+Cómo la función se llama sólo cuando el componente es creado, en el **`created()`** no se actualiza el parámetro, por esta razón no carga la entrada.
+
+:book: [Entradas ficticias](https://vue-demo-757f6-default-rtdb.firebaseio.com/entries.json)
