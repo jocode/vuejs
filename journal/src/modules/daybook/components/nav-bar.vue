@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar bg-primary">
-    <a class="navbar-brand text-white">
+    <a 
+      class="navbar-brand text-white"
+      @click="$router.push({name: 'daybook'})">
+      
       <img
         src="@/assets/logo.png"
         height="24"
@@ -18,3 +21,9 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+  nav a {
+    cursor: pointer;
+  }
+</style>
